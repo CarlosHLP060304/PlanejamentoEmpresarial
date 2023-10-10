@@ -7,7 +7,9 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%List<Tarefa> tarefas = new TarefaDAO().pesquisarTodasTarefas();%>
+<%
+Boolean finalizado = Boolean.parseBoolean(request.getParameter("finalizado"));
+List<Tarefa> tarefas = new TarefaDAO().pesquisarTarefasFinalizadas(finalizado);%>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -120,8 +122,7 @@
 		</div>
 		
 		<div class="pop-up p-2 none" id="pop-up-filtro">
-			<form action="./tarefa
-			 class="d-flex flex-column gap-3 p-3 bg-primary rounded">
+			<form action="" class="d-flex flex-column gap-3 p-3 bg-primary rounded">
 				<div class="d-flex justify-content-start">
 					<span class="btn text-light fs-4" id="btn-filtro-fechar">X</span>
 				</div>

@@ -35,8 +35,10 @@ int count = 0;
 			<thead class="table-dark">
 				<tr>
 					<th>Descrição</th>
+					<th>Data de Início</th>
 					<th>Data de Finalização da tarefa</th>
 					<th>Link para acessar a tarefa</th>
+					<th>Dias restantes</th>
 					<th>Finalizada</th>
 					<th></th>
 					<th></th>
@@ -48,8 +50,10 @@ int count = 0;
 				%>
 				<tr>
 					<th><%=tarefa.getDescricao()%></th>
-					<th><%=tarefa.getDataFormatada() %></th>
+					<th><%=tarefa.getDataInicioFormatada() %></th>
+					<th><%=tarefa.getDataFinalizacaoFormatada()%></th>
 					<th><a href="<%=tarefa.getLink()%>" target="_blank"><%=tarefa.getLink()%></a></th>
+					<th><%=tarefa.getDataInicio().until(tarefa.getDataFinalizacao())%></th>
 					<th><%=tarefa.getFinalizada()%></th>
 					<th>
 						<button class="open-btn btn-alterar btn btn-warning " id=""
@@ -85,6 +89,10 @@ int count = 0;
 				<fieldset class="">
 					<label for="">Descrição da tarefa</label>
 					<textarea class="form-control" id="descricao" name="descricao"><%=tarefas.get(id).getDescricao()%></textarea>
+				</fieldset>
+				<fieldset>
+					<label for="" class="mb-1">Data de início</label> <br> <input
+						type="date" name="dataInicio" value="<%=tarefas.get(id).getDataInicio()%>">
 				</fieldset>
 				<fieldset>
 					<label for="" class="mb-1">Data de finalização</label> <br> <input

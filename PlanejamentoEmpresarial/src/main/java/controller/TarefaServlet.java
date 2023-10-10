@@ -23,8 +23,9 @@ public class TarefaServlet extends HttpServlet {
 				String descricao = request.getParameter("descricao");
 				String link = request.getParameter("link");
 				boolean finalizada = Boolean.parseBoolean(request.getParameter("finalizada"));
+				LocalDate dataInicio = LocalDate.parse(request.getParameter("dataInicio"));
 				LocalDate dataFinalizacao = LocalDate.parse(request.getParameter("dataFinalizacao"));
-				Tarefa tarefa = new Tarefa(descricao, dataFinalizacao, link,finalizada);
+				Tarefa tarefa = new Tarefa(descricao,dataInicio,dataFinalizacao, link,finalizada);
 				if(acao.equals("adicionar")) {
 					new TarefaDAO().inserir(tarefa);					
 				}
@@ -39,8 +40,6 @@ public class TarefaServlet extends HttpServlet {
 				Integer id = Integer.parseInt(request.getParameter("id"));
 				new TarefaDAO().remover(id);
 				response.sendRedirect("index.jsp");
-				break;
-			case "pesquisar":
 				break;
 		}
 		

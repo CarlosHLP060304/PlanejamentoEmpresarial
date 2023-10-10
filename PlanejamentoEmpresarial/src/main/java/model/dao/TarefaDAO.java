@@ -11,13 +11,14 @@ import model.entidades.Tarefa;
 public class TarefaDAO extends ClasseDAO {
      
 	public void inserir(Tarefa tarefa){
-    	 sql = "insert into tarefa_empresa(id,descricao,data_finalizacao,link_acesso,finalizada) values(seq_id_tarefa.nextval,?,?,?,?)";
+    	 sql = "insert into tarefa_empresa(id,descricao,data_inicio,data_finalizacao,link_acesso,finalizada) values(seq_id_tarefa.nextval,?,?,?,?,?)";
     	 try(Connection conn = conexao.conectar()){
     		 ps = conn.prepareStatement(sql);
     		 ps.setString(1,tarefa.getDescricao());
-    		 ps.setDate(2,Date.valueOf(tarefa.getDataFinalizacao()));
-    		 ps.setString(3,tarefa.getLink());
-    		 ps.setString(4,tarefa.getFinalizada().toString());
+    		 ps.setDate(2,Date.valueOf(tarefa.getDataInicio()));
+    		 ps.setDate(3,Date.valueOf(tarefa.getDataFinalizacao()));
+    		 ps.setString(4,tarefa.getLink());
+    		 ps.setString(5,tarefa.getFinalizada().toString());
     		 ps.execute();
     		 ps.close();
     	 }catch (SQLException e) {
@@ -26,14 +27,15 @@ public class TarefaDAO extends ClasseDAO {
      }
 	
      public void alterar(Tarefa tarefa) {
-    	 sql = "update tarefa_empresa set descricao = ?,data_finalizacao = ?,link_acesso= ?,finalizada=?  where id=?";
+    	 sql = "update tarefa_empresa set descricao = ?,data_inicio = ?,data_finalizacao = ?,link_acesso= ?,finalizada=?  where id=?";
     	 try(Connection conn = conexao.conectar()){
     		 ps = conn.prepareStatement(sql);
     		 ps.setString(1,tarefa.getDescricao());
-    		 ps.setDate(2,Date.valueOf(tarefa.getDataFinalizacao()));
-    		 ps.setString(3,tarefa.getLink());
-    		 ps.setBoolean(4,tarefa.getFinalizada());
-    		 ps.setInt(5,tarefa.getId());
+    		 ps.setDate(2,Date.valueOf(tarefa.getDataInicio()));
+    		 ps.setDate(3,Date.valueOf(tarefa.getDataFinalizacao()));
+    		 ps.setString(4,tarefa.getLink());
+    		 ps.setBoolean(5,tarefa.getFinalizada());
+    		 ps.setInt(6,tarefa.getId());
     		 ps.execute();
     		 ps.close();
     	 }catch (SQLException e) {
@@ -63,10 +65,11 @@ public class TarefaDAO extends ClasseDAO {
     		 while(rs.next()) {  
     			 int id = rs.getInt("id");
     			 String descricao = rs.getString("descricao");
+    			 Date dataInicio= (rs.getDate("data_inicio")); 
     			 Date dataFinalizacao= (rs.getDate("data_finalizacao")); 
     			 String link = rs.getString("link_acesso");
     			 Boolean finalizada = rs.getBoolean("finalizada");
-    			 Tarefa tarefa = new Tarefa(id,descricao,dataFinalizacao.toLocalDate(), link, finalizada);
+    			 Tarefa tarefa = new Tarefa(id,descricao,dataInicio.toLocalDate(),dataFinalizacao.toLocalDate(),link,finalizada);
     			 tarefasFinalizadas.add(tarefa);
     		 }
     		 ps.close();
@@ -85,10 +88,11 @@ public class TarefaDAO extends ClasseDAO {
     		 while(rs.next()) {    
     			 int id = rs.getInt("id");
     			 String descricao = rs.getString("descricao");
+    			 Date dataInicio= (rs.getDate("data_inicio")); 
     			 Date dataFinalizacao= (rs.getDate("data_finalizacao")); 
     			 String link = rs.getString("link_acesso");
     			 Boolean finalizada = rs.getBoolean("finalizada");
-    			 Tarefa tarefa = new Tarefa(id,descricao,dataFinalizacao.toLocalDate(), link, finalizada);
+    			 Tarefa tarefa = new Tarefa(id,descricao,dataInicio.toLocalDate(),dataFinalizacao.toLocalDate(),link,finalizada);
     			 tarefas.add(tarefa);
     		 }
     		 ps.close();

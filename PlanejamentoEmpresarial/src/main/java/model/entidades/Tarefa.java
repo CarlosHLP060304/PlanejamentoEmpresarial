@@ -2,30 +2,29 @@ package model.entidades;
 
 import java.time.LocalDate;
 
-import javax.swing.text.DateFormatter;
-
-import oracle.sql.DATE;
-
-import java.sql.Date;
-import java.text.DateFormat;
 
 public class Tarefa {
 	int id;
 	String descricao;
+	LocalDate dataInicio;
 	LocalDate dataFinalizacao;
 	String link;
 	Boolean finalizada;
     public Tarefa() {}
-	public Tarefa(String descricao, LocalDate dataFinalizacao, String link, Boolean finalizada) {
+
+	public Tarefa(int id, String descricao, LocalDate dataInicio, LocalDate dataFinalizacao, String link,
+			Boolean finalizada) {
+		this.id = id;
 		this.descricao = descricao;
+		this.dataInicio = dataInicio;
 		this.dataFinalizacao = dataFinalizacao;
 		this.link = link;
 		this.finalizada = finalizada;
 	}
-	
-	public Tarefa(int id, String descricao, LocalDate dataFinalizacao, String link, Boolean finalizada) {
-		this.id = id;
+
+	public Tarefa(String descricao, LocalDate dataInicio, LocalDate dataFinalizacao, String link, Boolean finalizada) {
 		this.descricao = descricao;
+		this.dataInicio = dataInicio;
 		this.dataFinalizacao = dataFinalizacao;
 		this.link = link;
 		this.finalizada = finalizada;
@@ -61,10 +60,26 @@ public class Tarefa {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	public LocalDate getDataInicio() {
+		return dataInicio;
+	}
+
+	public void setDataInicio(LocalDate dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public String getDataInicioFormatada() {
+		String dataFormatada = dataInicio.getDayOfMonth() +"/" +dataInicio.getMonthValue() +"/" + dataInicio.getYear();
+		return dataFormatada;
+	}
 		
-	public String getDataFormatada() {
+	public String getDataFinalizacaoFormatada() {
 		String dataFormatada = dataFinalizacao.getDayOfMonth() +"/" +dataFinalizacao.getMonthValue() +"/" + dataFinalizacao.getYear();
 	    return dataFormatada;
 	}
+	
+	
+	
 	
 }
