@@ -1,0 +1,14 @@
+*{
+    box-sizing: border-box;
+}
+.pop-up{
+    position: absolute;
+    top:10%;
+    left:25%;
+    right:25%;
+}
+.none{display: none;}
+
+tbody img{
+    width: 25px;
+}
